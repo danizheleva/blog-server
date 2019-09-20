@@ -1,4 +1,4 @@
-package entity;
+package com.danielazheleva.blog.entity;
 
 import lombok.Data;
 

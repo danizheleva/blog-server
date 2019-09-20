@@ -1,6 +1,6 @@
 package com.danielazheleva.blog.repository;
 
-import entity.Post;
+import com.danielazheleva.blog.entity.Post;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

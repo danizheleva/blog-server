@@ -2,7 +2,7 @@ package com.danielazheleva.blog.services.Impl;
 
 import com.danielazheleva.blog.repository.PostRepo;
 import com.danielazheleva.blog.services.PostsService;
-import entity.Post;
+import com.danielazheleva.blog.entity.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

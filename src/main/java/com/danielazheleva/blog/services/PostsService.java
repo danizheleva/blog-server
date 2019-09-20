@@ -1,7 +1,6 @@
 package com.danielazheleva.blog.services;
 
-import entity.Post;
-import org.springframework.stereotype.Service;
+import com.danielazheleva.blog.entity.Post;
 
 import java.util.List;
 

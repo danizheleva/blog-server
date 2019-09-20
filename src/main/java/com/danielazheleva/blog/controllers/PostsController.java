@@ -2,7 +2,7 @@ package com.danielazheleva.blog.controllers;
 
 import com.danielazheleva.blog.model.request.PostDetailRequestModel;
 import com.danielazheleva.blog.services.PostsService;
-import entity.Post;
+import com.danielazheleva.blog.entity.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
