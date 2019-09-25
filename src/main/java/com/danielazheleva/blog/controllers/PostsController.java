@@ -1,8 +1,8 @@
 package com.danielazheleva.blog.controllers;
 
-import com.danielazheleva.blog.model.request.PostDetailRequestModel;
+import com.danielazheleva.blog.model.request.TripDetailRequestModel;
 import com.danielazheleva.blog.services.PostsService;
-import entity.Post;
+import entity.TripEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +16,13 @@ public class PostsController {
     private PostsService postsService;
 
     @GetMapping
-    public List<Post> getAllPosts(){
-        //return "get route";
+    public List<TripEntity> getAllPosts(){
         return postsService.allPosts();
     }
 
     @PostMapping
-    public String createNewPost(@RequestBody PostDetailRequestModel postDetail){
-        return "This will create a new post";
+    public void createNewPost(@RequestBody TripDetailRequestModel postDetail){
+        postsService.savePost(postDetail);
     }
 
     @PutMapping(name = "/post/{id}")

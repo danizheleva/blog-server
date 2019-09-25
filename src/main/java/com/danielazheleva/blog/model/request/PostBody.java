@@ -6,8 +6,10 @@ import lombok.Data;
 public class PostBody {
 
     private Integer dayNumber;
+
     private String country;
     private String city;
-    private String description;
+
+    private String postText;
 
 }

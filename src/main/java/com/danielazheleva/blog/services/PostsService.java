@@ -1,12 +1,14 @@
 package com.danielazheleva.blog.services;
 
-import entity.Post;
-import org.springframework.stereotype.Service;
+import com.danielazheleva.blog.model.request.TripDetailRequestModel;
+import entity.TripEntity;
 
 import java.util.List;
 
 public interface PostsService {
 
-    List<Post> allPosts();
+    List<TripEntity> allPosts();
+
+    void savePost(TripDetailRequestModel post);
 
 }

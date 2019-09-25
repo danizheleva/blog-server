@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class PostDetailRequestModel {
+public class TripDetailRequestModel {
 
     private String tripTitle;
     private Date tripStartDate;
+    private Integer tripDuration;
     private List<PostBody> postBody;
 
-    private String postCreationDate;
+    private Date postCreationDate;
+    private Date postEditDate;
 
 }

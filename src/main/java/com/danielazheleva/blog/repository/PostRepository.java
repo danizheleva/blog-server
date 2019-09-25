@@ -1,13 +1,13 @@
 package com.danielazheleva.blog.repository;
 
-import entity.Post;
+import entity.TripEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface PostRepo extends CrudRepository<Post, Long> {
+public interface PostRepository extends CrudRepository<TripEntity, Long> {
 
-    List<Post> findAll();
+    List<TripEntity> findAll();
 }

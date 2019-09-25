@@ -2,14 +2,11 @@ package entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
-@Entity(name="posts")
-public class Post {
+@Entity(name="postBody")
+public class PostBody {
 
     @Id
     @GeneratedValue
@@ -25,5 +22,9 @@ public class Post {
     private String city;
 
     @Column
-    private String description;
+    private String postText;
+
+    @ManyToOne
+    private TripEntity trip;
+
 }
