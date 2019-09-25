@@ -1,10 +1,10 @@
 package entity;
 
-import com.danielazheleva.blog.model.request.PostBody;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Entity(name="trip")
@@ -12,7 +12,7 @@ public class TripEntity {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long trip_id;
 
     @Column(nullable = false)
     private String tripTitle;
@@ -23,9 +23,8 @@ public class TripEntity {
     @Column(nullable = false)
     private Integer tripDuration;
 
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
-    @JoinColumn
-    private PostBody postBody;
+    @OneToMany(mappedBy = "trip")
+    private Set<PostBodyEntity> postBody;
 
     @Column(nullable = false)
     private Date postCreationDate;
