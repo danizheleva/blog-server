@@ -3,7 +3,7 @@ package com.danielazheleva.blog.model.request;
 import lombok.Data;
 
 @Data
-public class PostBody {
+public class Day {
 
     private Integer dayNumber;
 

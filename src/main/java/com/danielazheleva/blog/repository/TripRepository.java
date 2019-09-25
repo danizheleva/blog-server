@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PostRepository extends CrudRepository<TripEntity, Long> {
+public interface TripRepository extends CrudRepository<TripEntity, Long> {
 
     List<TripEntity> findAll();
 }
