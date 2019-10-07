@@ -1,6 +1,6 @@
 package com.danielazheleva.blog.repository;
 
-import entity.TripEntity;
+import com.danielazheleva.blog.entity.TripEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

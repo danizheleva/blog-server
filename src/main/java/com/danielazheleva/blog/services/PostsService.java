@@ -1,14 +1,14 @@
 package com.danielazheleva.blog.services;
 
-import com.danielazheleva.blog.model.request.TripDetailRequestModel;
-import entity.TripEntity;
+import com.danielazheleva.blog.shared.TripDto;
+import com.danielazheleva.blog.entity.TripEntity;
 
 import java.util.List;
 
 public interface PostsService {
 
-    List<TripEntity> allPosts();
+    List<TripEntity> getAllPosts();
 
-    void savePost(TripDetailRequestModel post);
+    TripDto savePost(TripDto post);
 
 }

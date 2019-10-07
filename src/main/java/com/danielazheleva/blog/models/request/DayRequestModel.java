@@ -1,9 +1,9 @@
-package com.danielazheleva.blog.model.request;
+package com.danielazheleva.blog.models.request;
 
 import lombok.Data;
 
 @Data
-public class Day {
+public class DayRequestModel {
 
     private Integer dayNumber;
 

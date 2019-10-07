@@ -1,17 +1,21 @@
-package entity;
+package com.danielazheleva.blog.entity;
 
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
-@Entity(name="TRIP")
-public class TripEntity {
+@Entity(name="trips")
+public class TripEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @Column(nullable = false)
     private String tripTitle;
@@ -27,4 +31,7 @@ public class TripEntity {
 
     @Column
     private Date postEditDate;
+
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    private List<DayEntity> days;
 }
