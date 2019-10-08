@@ -1,7 +1,5 @@
 package com.danielazheleva.blog.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -31,8 +29,8 @@ public class TripEntity implements Serializable {
     @Column
     private Date postEditDate;
 
-    @OneToMany(mappedBy = "tripDetails", cascade = CascadeType.ALL)
-    private List<DayEntity> days;
+    @OneToMany(mappedBy = "tripDetail", cascade = CascadeType.ALL)
+    private List<DayEntity> listOfDays;
 
     public long getId() {
         return id;
@@ -82,11 +80,11 @@ public class TripEntity implements Serializable {
         this.postEditDate = postEditDate;
     }
 
-    public List<DayEntity> getDays() {
-        return days;
+    public List<DayEntity> getListOfDays() {
+        return listOfDays;
     }
 
-    public void setDays(List<DayEntity> days) {
-        this.days = days;
+    public void setListOfDays(List<DayEntity> listOfDays) {
+        this.listOfDays = listOfDays;
     }
 }

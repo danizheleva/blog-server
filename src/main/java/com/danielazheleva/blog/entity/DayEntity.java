@@ -29,7 +29,7 @@ public class DayEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "trips_id")
-    private TripEntity tripDetails;
+    private TripEntity tripDetail;
 
     public long getId() {
         return id;
@@ -71,11 +71,11 @@ public class DayEntity implements Serializable {
         this.postText = postText;
     }
 
-    public TripEntity getTripDetails() {
-        return tripDetails;
+    public TripEntity getTripDetail() {
+        return tripDetail;
     }
 
-    public void setTripDetails(TripEntity tripDetails) {
-        this.tripDetails = tripDetails;
+    public void setTripDetail(TripEntity tripDetail) {
+        this.tripDetail = tripDetail;
     }
 }

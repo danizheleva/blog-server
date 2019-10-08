@@ -7,6 +7,7 @@ import com.danielazheleva.blog.repository.TripRepository;
 import com.danielazheleva.blog.services.PostsService;
 import com.danielazheleva.blog.entity.TripEntity;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -35,10 +36,11 @@ public class PostImpl implements PostsService {
         for(int i=0; i<tripDto.getListOfDays().size(); i++){
             DayDto day = tripDto.getListOfDays().get(i);
             day.setTripDetail(tripDto);
-            tripDto.getListOfDays().set(i, day);
+         //   tripDto.getListOfDays().set(i, day);
         }
 
         ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         TripEntity tripEntity = modelMapper.map(tripDto, TripEntity.class);
 
         TripEntity storedTripEntity = tripRepository.save(tripEntity);

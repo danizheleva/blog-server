@@ -4,7 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-public class DayDto  {
+public class DayDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private long id;
     private Integer dayNumber;
