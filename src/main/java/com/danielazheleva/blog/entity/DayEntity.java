@@ -1,12 +1,11 @@
 package com.danielazheleva.blog.entity;
 
 import com.danielazheleva.blog.shared.TripDto;
-import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+
 @Entity(name="days")
 public class DayEntity implements Serializable {
 
@@ -28,8 +27,55 @@ public class DayEntity implements Serializable {
     @Column
     private String postText;
 
-    @ManyToOne(targetEntity = TripEntity.class)
+    @ManyToOne
     @JoinColumn(name = "trips_id")
-    private TripDto trip;
+    private TripEntity tripDetails;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Integer getDayNumber() {
+        return dayNumber;
+    }
+
+    public void setDayNumber(Integer dayNumber) {
+        this.dayNumber = dayNumber;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostText() {
+        return postText;
+    }
+
+    public void setPostText(String postText) {
+        this.postText = postText;
+    }
+
+    public TripEntity getTripDetails() {
+        return tripDetails;
+    }
+
+    public void setTripDetails(TripEntity tripDetails) {
+        this.tripDetails = tripDetails;
+    }
 }

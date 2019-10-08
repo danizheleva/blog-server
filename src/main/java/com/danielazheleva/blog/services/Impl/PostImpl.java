@@ -32,7 +32,6 @@ public class PostImpl implements PostsService {
 
     public TripDto savePost(TripDto tripDto) {
 
-
         for(int i=0; i<tripDto.getListOfDays().size(); i++){
             DayDto day = tripDto.getListOfDays().get(i);
             day.setTripDetail(tripDto);
@@ -44,8 +43,7 @@ public class PostImpl implements PostsService {
 
         TripEntity storedTripEntity = tripRepository.save(tripEntity);
 
-        TripDto returnValue = new TripDto();
-        BeanUtils.copyProperties(storedTripEntity, returnValue);
+        TripDto returnValue = modelMapper.map(storedTripEntity, TripDto.class);
 
         return returnValue;
     }
