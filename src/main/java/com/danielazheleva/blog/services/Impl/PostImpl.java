@@ -36,7 +36,6 @@ public class PostImpl implements PostsService {
         for(int i=0; i<tripDto.getListOfDays().size(); i++){
             DayDto day = tripDto.getListOfDays().get(i);
             day.setTripDetail(tripDto);
-         //   tripDto.getListOfDays().set(i, day);
         }
 
         ModelMapper modelMapper = new ModelMapper();
