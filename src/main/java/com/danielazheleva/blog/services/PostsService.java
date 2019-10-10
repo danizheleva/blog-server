@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostsService {
 
-    List<TripEntity> getAllPosts();
+    List<TripDto> getAllPosts();
 
     TripDto savePost(TripDto post);
 

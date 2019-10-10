@@ -7,6 +7,7 @@ import com.danielazheleva.blog.repository.TripRepository;
 import com.danielazheleva.blog.services.PostsService;
 import com.danielazheleva.blog.entity.TripEntity;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +28,12 @@ public class PostImpl implements PostsService {
     @Autowired
     private DayRepository dayRepo;
 
-    public List<TripEntity> getAllPosts(){
-        return tripRepository.findAll();
+    public List<TripDto> getAllPosts(){
+
+        List<TripEntity> tripEntityList = tripRepository.findAll();
+
+        ModelMapper mm = new ModelMapper();
+        return mm.map(tripEntityList,  new TypeToken<List<TripDto>>(){}.getType());
     }
 
     public TripDto savePost(TripDto tripDto) {
