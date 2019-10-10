@@ -1,6 +1,5 @@
 package com.danielazheleva.blog.shared;
 
-import com.danielazheleva.blog.models.request.DayRequestModel;
 import lombok.Data;
 
 import java.io.Serializable;

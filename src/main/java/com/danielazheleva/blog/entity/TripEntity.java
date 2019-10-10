@@ -1,10 +1,13 @@
 package com.danielazheleva.blog.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+@Data
 @Entity(name="trips")
 public class TripEntity implements Serializable {
 
@@ -31,60 +34,4 @@ public class TripEntity implements Serializable {
 
     @OneToMany(mappedBy = "tripDetail", cascade = CascadeType.ALL)
     private List<DayEntity> listOfDays;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTripTitle() {
-        return tripTitle;
-    }
-
-    public void setTripTitle(String tripTitle) {
-        this.tripTitle = tripTitle;
-    }
-
-    public Date getTripStartDate() {
-        return tripStartDate;
-    }
-
-    public void setTripStartDate(Date tripStartDate) {
-        this.tripStartDate = tripStartDate;
-    }
-
-    public Integer getTripDuration() {
-        return tripDuration;
-    }
-
-    public void setTripDuration(Integer tripDuration) {
-        this.tripDuration = tripDuration;
-    }
-
-    public Date getPostCreationDate() {
-        return postCreationDate;
-    }
-
-    public void setPostCreationDate(Date postCreationDate) {
-        this.postCreationDate = postCreationDate;
-    }
-
-    public Date getPostEditDate() {
-        return postEditDate;
-    }
-
-    public void setPostEditDate(Date postEditDate) {
-        this.postEditDate = postEditDate;
-    }
-
-    public List<DayEntity> getListOfDays() {
-        return listOfDays;
-    }
-
-    public void setListOfDays(List<DayEntity> listOfDays) {
-        this.listOfDays = listOfDays;
-    }
 }
