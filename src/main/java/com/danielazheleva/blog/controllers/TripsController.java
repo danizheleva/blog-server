@@ -35,12 +35,14 @@ public class TripsController {
 
     private final ModelMapper mm = new ModelMapper();
 
+    // GET ALL TRIPS
     @GetMapping("/trips")
     public List<TripRest> getAllTrips(){
         List<TripDto> tripDtoList = tripService.getAllTrips();
         return mm.map(tripDtoList, new TypeToken<List<TripRest>>(){}.getType());
     }
 
+    // CREATE NEW TRIP
     @PostMapping("/trips")
     public TripRest createNewTrip(@RequestBody TripDetailRequestModel tripDetailRequestModel){
 
@@ -50,6 +52,7 @@ public class TripsController {
         return mm.map(createdTrip, TripRest.class);
     }
 
+    // GET ONE TRIP
     @GetMapping("/trips/{id}")
     public TripRest getTrip(@PathVariable Long id){
         TripDto foundTrip = tripService.getTrip(id);
@@ -57,6 +60,7 @@ public class TripsController {
         return mm.map(foundTrip, TripRest.class);
     }
 
+    // GET ALL DAYS FOR ONE TRIP
     @GetMapping("/trips/{tripId}/days")
     public List<DayRest> getDaysOfTrip(@PathVariable Long tripId) {
 
@@ -69,22 +73,26 @@ public class TripsController {
 
     }
 
+    // DELETE ONE TRIP
     @DeleteMapping("/trips/{id}")
     public void deleteTrip(@PathVariable Long id) {
         tripService.deleteTrip(id);
     }
 
-//    @GetMapping("/trips/{tripId}/days/{dayId}")
-//    public List<DayRest> getDay(@PathVariable Long tripId,
-//                                @PathVariable Long dayId){
-//
-//        List<DayDto> dayDto = dayService.getAllDaysForTrip(tripId);
-//
-//        DayDto thisDayDto = dayService.getDay(dayDto);
-//
-//
-//        Type listType = new TypeToken<List<DayRest>>() {}.getType();
-//        List<DayRest> toReturn = mm.map(dayDto, listType);
-//
-//        return toReturn;
+    // GET ONE DAY OF ONE TRIP
+    @GetMapping("/trips/{tripId}/days/{dayId}")
+    public DayRest getDay(@PathVariable Long tripId,
+                          @PathVariable Long dayId) {
+
+        TripDto foundTrip = tripService.getTrip(tripId);
+        List<DayDto> daysOTrip = foundTrip.getListOfDays();
+
+        if (daysOTrip == null) {
+            return null;
+        }
+
+        DayDto dayDto = dayService.getDay(dayId);
+
+        return mm.map(dayDto, DayRest.class);
+    }
 }
