@@ -5,10 +5,12 @@ import com.danielazheleva.blog.repository.DayRepository;
 import com.danielazheleva.blog.services.DayService;
 import com.danielazheleva.blog.services.TripService;
 import com.danielazheleva.blog.shared.DayDto;
+import com.danielazheleva.blog.shared.TripDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,7 +26,14 @@ public class DayServiceImpl implements DayService {
 
     @Override
     public List<DayDto> getAllDaysForTrip(Long tripId) {
-        return tripService.getTrip(tripId).getListOfDays();
+
+        List<DayDto> foundValue = new ArrayList<>();
+        TripDto trip = tripService.getTrip(tripId);
+
+        if ( trip == null ) { return foundValue; }
+
+        return trip.getListOfDays();
+
     }
 
     @Override

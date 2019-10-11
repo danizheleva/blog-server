@@ -87,17 +87,4 @@ public class TripsController {
 //        List<DayRest> toReturn = mm.map(dayDto, listType);
 //
 //        return toReturn;
-//
-//    }
-//    @DeleteMapping("/testDelete/{id}")
-//    public String deletePost(@PathVariable Long id){
-//
-//        tripRepository.deleteById(id);
-//
-//     //   postsService.deleteTrip(id);
-//
-//   //     String toReturn = "trip with id" + id + "was deleted";
-//
-//        return "delete route" ;
-//    }
 }
