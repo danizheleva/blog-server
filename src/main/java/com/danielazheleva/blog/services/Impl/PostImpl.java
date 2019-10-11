@@ -21,6 +21,7 @@ import java.util.List;
 public class PostImpl implements PostsService {
 
     public static Logger LOG = LoggerFactory.getLogger(PostImpl.class);
+    ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     private TripRepository tripRepository;
@@ -28,7 +29,7 @@ public class PostImpl implements PostsService {
     @Autowired
     private DayRepository dayRepo;
 
-    public List<TripDto> getAllPosts(){
+    public List<TripDto> getAllTrips(){
 
         List<TripEntity> tripEntityList = tripRepository.findAll();
 
@@ -36,14 +37,13 @@ public class PostImpl implements PostsService {
         return mm.map(tripEntityList,  new TypeToken<List<TripDto>>(){}.getType());
     }
 
-    public TripDto savePost(TripDto tripDto) {
+    public TripDto saveTrip(TripDto tripDto) {
 
         for(int i=0; i<tripDto.getListOfDays().size(); i++){
             DayDto day = tripDto.getListOfDays().get(i);
             day.setTripDetail(tripDto);
         }
 
-        ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         TripEntity tripEntity = modelMapper.map(tripDto, TripEntity.class);
 
@@ -52,5 +52,16 @@ public class PostImpl implements PostsService {
         TripDto returnValue = modelMapper.map(storedTripEntity, TripDto.class);
 
         return returnValue;
+    }
+
+    public TripDto getTrip(Long tripId) {
+
+        TripEntity tripEntity = tripRepository.findTripById(tripId);
+
+        return modelMapper.map(tripEntity, TripDto.class);
+    }
+
+    public void deleteTrip(Long id) {
+        tripRepository.deleteById(id);
     }
 }

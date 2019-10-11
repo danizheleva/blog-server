@@ -8,11 +8,11 @@ import java.util.List;
 @Data
 public class TripRest {
 
-    private String tripName;
-    private Date tripStartTime;
-    private Integer tripLength;
+    private String tripTitle;
+    private Date tripStartDate;
+    private Integer tripDuration;
     private List<DayRest> listOfDays;
-    private Date tripCreationDate;
-    private Date tripEditDate;
+    private Date postCreationDate;
+    private Date postEditDate;
 
 }

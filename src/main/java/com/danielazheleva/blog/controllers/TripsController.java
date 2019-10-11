@@ -1,11 +1,10 @@
 package com.danielazheleva.blog.controllers;
 
 import com.danielazheleva.blog.models.responce.TripRest;
-import com.danielazheleva.blog.shared.DayDto;
+import com.danielazheleva.blog.repository.TripRepository;
 import com.danielazheleva.blog.shared.TripDto;
 import com.danielazheleva.blog.models.request.TripDetailRequestModel;
 import com.danielazheleva.blog.services.PostsService;
-import com.danielazheleva.blog.entity.TripEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,37 +13,48 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("trips")
+@RequestMapping()
 public class TripsController {
 
     @Autowired
     private PostsService postsService;
 
+    @Autowired
+    private TripRepository tripRepository;
+
     private final ModelMapper mm = new ModelMapper();
 
-    @GetMapping
+    @GetMapping("/trips")
     public List<TripRest> getAllTrips(){
-        List<TripDto> tripDtoList = postsService.getAllPosts();
+        List<TripDto> tripDtoList = postsService.getAllTrips();
         return mm.map(tripDtoList, new TypeToken<List<TripRest>>(){}.getType());
     }
 
-    @PostMapping
+    @PostMapping("trips")
     public TripRest createNewTrip(@RequestBody TripDetailRequestModel tripDetailRequestModel){
 
-        ModelMapper modelMapper = new ModelMapper();
-        TripDto tripDto = modelMapper.map(tripDetailRequestModel, TripDto.class);
+        TripDto tripDto = mm.map(tripDetailRequestModel, TripDto.class);
 
-        TripDto createdTrip = postsService.savePost(tripDto);
-        return modelMapper.map(createdTrip, TripRest.class);
+        TripDto createdTrip = postsService.saveTrip(tripDto);
+        return mm.map(createdTrip, TripRest.class);
     }
 
-//    @PutMapping(name = "/{id}")
-//    public String editPost(){
-//        return "This will edit an existing post";
-//    }
+    @GetMapping("/trips/{id}")
+    public TripRest getTrip(@PathVariable Long id){
+        TripDto foundTrip = postsService.getTrip(id);
 
-//    @DeleteMapping(name = "{id}")
-//    public String deletePost(){
-//        return "This will delete a given post";
+        return mm.map(foundTrip, TripRest.class);
+    }
+
+//    @DeleteMapping("/testDelete/{id}")
+//    public String deletePost(@PathVariable Long id){
+//
+//        tripRepository.deleteById(id);
+//
+//     //   postsService.deleteTrip(id);
+//
+//   //     String toReturn = "trip with id" + id + "was deleted";
+//
+//        return "delete route" ;
 //    }
 }

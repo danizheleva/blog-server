@@ -10,4 +10,6 @@ import java.util.List;
 public interface TripRepository extends CrudRepository<TripEntity, Long> {
 
     List<TripEntity> findAll();
+
+    TripEntity findTripById(Long tripId);
 }

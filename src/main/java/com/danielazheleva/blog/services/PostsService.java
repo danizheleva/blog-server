@@ -7,8 +7,12 @@ import java.util.List;
 
 public interface PostsService {
 
-    List<TripDto> getAllPosts();
+    List<TripDto> getAllTrips();
 
-    TripDto savePost(TripDto post);
+    TripDto saveTrip(TripDto post);
+
+    TripDto getTrip(Long tripId);
+
+    void deleteTrip(Long tripId);
 
 }
