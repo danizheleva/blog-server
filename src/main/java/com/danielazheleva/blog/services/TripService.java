@@ -5,7 +5,7 @@ import com.danielazheleva.blog.entity.TripEntity;
 
 import java.util.List;
 
-public interface PostsService {
+public interface TripService {
 
     List<TripDto> getAllTrips();
 

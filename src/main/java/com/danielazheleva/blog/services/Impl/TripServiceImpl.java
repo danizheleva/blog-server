@@ -4,23 +4,22 @@ import com.danielazheleva.blog.shared.DayDto;
 import com.danielazheleva.blog.shared.TripDto;
 import com.danielazheleva.blog.repository.DayRepository;
 import com.danielazheleva.blog.repository.TripRepository;
-import com.danielazheleva.blog.services.PostsService;
+import com.danielazheleva.blog.services.TripService;
 import com.danielazheleva.blog.entity.TripEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PostImpl implements PostsService {
+public class TripServiceImpl implements TripService {
 
-    public static Logger LOG = LoggerFactory.getLogger(PostImpl.class);
+    public static Logger LOG = LoggerFactory.getLogger(TripServiceImpl.class);
     ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
@@ -62,6 +61,12 @@ public class PostImpl implements PostsService {
     }
 
     public void deleteTrip(Long id) {
-        tripRepository.deleteById(id);
+
+        try {
+            tripRepository.deleteById(id);
+        } catch (Error e) {
+            LOG.warn("Could not delete trip with id {}", id);
+        }
+
     }
 }

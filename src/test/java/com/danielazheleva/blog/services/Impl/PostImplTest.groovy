@@ -1,13 +1,9 @@
 package com.danielazheleva.blog.services.Impl
 
-import com.danielazheleva.blog.model.request.Day
-import com.danielazheleva.blog.model.request.TripDetailRequestModel
+
 import com.danielazheleva.blog.repository.DayRepository
 import com.danielazheleva.blog.repository.TripRepository
-import com.danielazheleva.blog.services.PostsService
-import com.danielazheleva.blog.entity.DayEntity
-import com.danielazheleva.blog.entity.TripEntity
-import org.assertj.core.api.Assertions
+import com.danielazheleva.blog.services.TripService
 import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest
 class PostImplTest {
 
     @Autowired
-    private PostsService postsService;
+    private TripService postsService;
 
     @Mock
     private DayRepository dayRepoMock;
