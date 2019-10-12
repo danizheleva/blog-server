@@ -1,5 +1,6 @@
 package com.danielazheleva.blog.services.Impl;
 
+import com.danielazheleva.blog.models.request.TripDetailRequestModel;
 import com.danielazheleva.blog.shared.DayDto;
 import com.danielazheleva.blog.shared.TripDto;
 import com.danielazheleva.blog.repository.DayRepository;
@@ -19,8 +20,8 @@ import java.util.List;
 @Service
 public class TripServiceImpl implements TripService {
 
-    public static Logger LOG = LoggerFactory.getLogger(TripServiceImpl.class);
-    ModelMapper modelMapper = new ModelMapper();
+    private final static Logger LOG = LoggerFactory.getLogger(TripServiceImpl.class);
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     private TripRepository tripRepository;
@@ -36,7 +37,9 @@ public class TripServiceImpl implements TripService {
         return mm.map(tripEntityList,  new TypeToken<List<TripDto>>(){}.getType());
     }
 
-    public TripDto saveTrip(TripDto tripDto) {
+    public TripDto saveTrip(TripDetailRequestModel tripDetailRequestModel) {
+
+        TripDto tripDto = modelMapper.map(tripDetailRequestModel, TripDto.class);
 
         for(int i=0; i<tripDto.getListOfDays().size(); i++){
             DayDto day = tripDto.getListOfDays().get(i);
@@ -48,16 +51,35 @@ public class TripServiceImpl implements TripService {
 
         TripEntity storedTripEntity = tripRepository.save(tripEntity);
 
-        TripDto returnValue = modelMapper.map(storedTripEntity, TripDto.class);
-
-        return returnValue;
+        return modelMapper.map(storedTripEntity, TripDto.class);
     }
 
     public TripDto getTrip(Long tripId) {
 
-        TripEntity tripEntity = tripRepository.findTripById(tripId);
+        TripEntity tripEntity = tripRepository.getOne(tripId);
 
         return modelMapper.map(tripEntity, TripDto.class);
+    }
+
+    @Override
+    public TripDto editTripDetails(TripDetailRequestModel newTripDetails, Long tripId) {
+
+        TripEntity tripToEdit = tripRepository.getOne(tripId);
+
+        // If no trip found, create new one
+        if ( tripToEdit == null ) {
+            TripDto newTripDto = modelMapper.map(newTripDetails, TripDto.class);
+            TripEntity newTrip = modelMapper.map(newTripDto, TripEntity.class);
+            TripEntity savedTrip = tripRepository.save(newTrip);
+            return modelMapper.map(savedTrip, TripDto.class);
+        }
+
+        tripToEdit.setTripTitle(newTripDetails.getTripTitle());
+        tripToEdit.setTripDuration(newTripDetails.getTripDuration());
+        tripToEdit.setTripStartDate(newTripDetails.getTripStartDate());
+        tripToEdit.setPostEditDate(newTripDetails.getPostEditDate());
+        TripEntity savedTrip = tripRepository.save(tripToEdit);
+        return modelMapper.map(savedTrip, TripDto.class);
     }
 
     public void deleteTrip(Long id) {

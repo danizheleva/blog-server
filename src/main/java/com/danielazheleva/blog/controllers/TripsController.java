@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping()
 public class TripsController {
 
-    public static org.slf4j.Logger LOG = LoggerFactory.getLogger(TripServiceImpl.class);
+    private final static org.slf4j.Logger LOG = LoggerFactory.getLogger(TripServiceImpl.class);
 
     @Autowired
     private TripService tripService;
@@ -46,9 +46,7 @@ public class TripsController {
     @PostMapping("/trips")
     public TripRest createNewTrip(@RequestBody TripDetailRequestModel tripDetailRequestModel){
 
-        TripDto tripDto = mm.map(tripDetailRequestModel, TripDto.class);
-
-        TripDto createdTrip = tripService.saveTrip(tripDto);
+        TripDto createdTrip = tripService.saveTrip(tripDetailRequestModel);
         return mm.map(createdTrip, TripRest.class);
     }
 
@@ -67,9 +65,17 @@ public class TripsController {
         List<DayDto> dayDto = dayService.getAllDaysForTrip(tripId);
 
         Type listType = new TypeToken<List<DayRest>>() {}.getType();
-        List<DayRest> toReturn = mm.map(dayDto, listType);
+        return mm.map(dayDto, listType);
 
-        return toReturn;
+    }
+
+    // EDIT TRIP DETAILS
+    @PutMapping("/trips/{tripId}")
+    public TripRest editTripDetails(@RequestBody TripDetailRequestModel newTripDetails, @PathVariable Long tripId) {
+
+        TripDto newTrip = tripService.editTripDetails(newTripDetails, tripId);
+
+        return mm.map(newTrip, TripRest.class);
 
     }
 
