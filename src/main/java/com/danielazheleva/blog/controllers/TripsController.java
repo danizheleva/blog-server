@@ -19,7 +19,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/trips")
 public class TripsController {
 
     private final static org.slf4j.Logger LOG = LoggerFactory.getLogger(TripServiceImpl.class);
@@ -36,14 +36,14 @@ public class TripsController {
     private final ModelMapper mm = new ModelMapper();
 
     // GET ALL TRIPS
-    @GetMapping("/trips")
+    @GetMapping
     public List<TripRest> getAllTrips(){
         List<TripDto> tripDtoList = tripService.getAllTrips();
         return mm.map(tripDtoList, new TypeToken<List<TripRest>>(){}.getType());
     }
 
     // CREATE NEW TRIP
-    @PostMapping("/trips")
+    @PostMapping
     public TripRest createNewTrip(@RequestBody TripDetailRequestModel tripDetailRequestModel){
 
         TripDto createdTrip = tripService.saveTrip(tripDetailRequestModel);
@@ -51,7 +51,7 @@ public class TripsController {
     }
 
     // GET ONE TRIP
-    @GetMapping("/trips/{id}")
+    @GetMapping("/{id}")
     public TripRest getTrip(@PathVariable Long id){
         TripDto foundTrip = tripService.getTrip(id);
 
@@ -59,7 +59,7 @@ public class TripsController {
     }
 
     // GET ALL DAYS FOR ONE TRIP
-    @GetMapping("/trips/{tripId}/days")
+    @GetMapping("/{tripId}/days")
     public List<DayRest> getDaysOfTrip(@PathVariable Long tripId) {
 
         List<DayDto> dayDto = dayService.getAllDaysForTrip(tripId);
@@ -70,7 +70,7 @@ public class TripsController {
     }
 
     // EDIT TRIP DETAILS
-    @PutMapping("/trips/{tripId}")
+    @PutMapping("/{tripId}")
     public TripRest editTripDetails(@RequestBody TripDetailRequestModel newTripDetails, @PathVariable Long tripId) {
 
         TripDto newTrip = tripService.editTripDetails(newTripDetails, tripId);
@@ -80,13 +80,13 @@ public class TripsController {
     }
 
     // DELETE ONE TRIP
-    @DeleteMapping("/trips/{id}")
+    @DeleteMapping("/{id}")
     public void deleteTrip(@PathVariable Long id) {
         tripService.deleteTrip(id);
     }
 
     // GET ONE DAY OF ONE TRIP
-    @GetMapping("/trips/{tripId}/days/{dayId}")
+    @GetMapping("/{tripId}/days/{dayId}")
     public DayRest getDay(@PathVariable Long tripId,
                           @PathVariable Long dayId) {
 
