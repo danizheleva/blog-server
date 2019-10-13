@@ -4,20 +4,16 @@ package com.danielazheleva.blog.services.Impl
 import com.danielazheleva.blog.repository.DayRepository
 import com.danielazheleva.blog.repository.TripRepository
 import com.danielazheleva.blog.services.TripService
-import org.junit.Ignore
+import com.danielazheleva.blog.shared.TripDto
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.runners.MockitoJUnitRunner
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
-@RunWith(MockitoJUnitRunner.class)
-class PostImplTest {
+
+class TripImplTest {
 
     @Autowired
-    private TripService postsService;
+    private TripService tripService;
 
     @Mock
     private DayRepository dayRepoMock;
@@ -26,7 +22,11 @@ class PostImplTest {
     private TripRepository tripRepoMock;
 
     @Test
-    @Ignore
-    void testSavePost() {
+    void testGetAllTrips() {
+
+        Mockito.when(tripRepoMock.findAll()).thenReturn(null);
+
+        List<TripDto> foundTrips = tripService.getAllTrips();
+
     }
 }
