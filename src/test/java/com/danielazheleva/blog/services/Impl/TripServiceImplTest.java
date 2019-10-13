@@ -4,13 +4,12 @@ import com.danielazheleva.blog.entity.TripEntity;
 import com.danielazheleva.blog.repository.TripRepository;
 import com.danielazheleva.blog.services.TripService;
 import com.danielazheleva.blog.shared.TripDto;
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.Before;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,24 +17,21 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
 class TripServiceImplTest {
 
     @InjectMocks
-    TripService tripService;
+    TripServiceImpl tripService;
 
     @Mock
     TripRepository tripRepositoryMock;
 
-    @BeforeClass
+    @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
     void testGetAllTrips() {
-
-    //    this.tripRepositoryMock = Mockito.mock(TripRepository.class);
 
         TripEntity mockTrip = new TripEntity();
         mockTrip.setTripTitle("Test Trip");
