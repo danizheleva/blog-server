@@ -104,6 +104,16 @@ public class TripsController {
         return mm.map(dayDto, DayRest.class);
     }
 
+    // CREATE DAY
+    @PostMapping("/{tripId}/days")
+    public TripRest createDay(@RequestBody DayRequestModel day,
+                              @PathVariable Long tripId) {
+
+        TripDto tripWithNewDay = dayService.createDay(day, tripId);
+
+        return mm.map(tripWithNewDay, TripRest.class);
+    }
+
     // EDIT DAY
     @PutMapping("/{tripId}/days/{dayId}")
     public DayRest editDay(@RequestBody DayRequestModel newDay,

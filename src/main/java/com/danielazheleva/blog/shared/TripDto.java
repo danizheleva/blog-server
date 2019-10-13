@@ -14,7 +14,6 @@ public class TripDto implements Serializable {
     private long id;
     private String tripTitle;
     private Date tripStartDate;
-    private Integer tripDuration;
     private List<DayDto> listOfDays;
     private Date postCreationDate;
     private Date postEditDate;
@@ -27,7 +26,6 @@ public class TripDto implements Serializable {
                 "id=" + id +
                 ", tripTitle='" + tripTitle + '\'' +
                 ", tripStartDate=" + tripStartDate +
-                ", tripDuration=" + tripDuration +
                 ", listOfDays=" + listOfDays +
                 ", postCreationDate=" + postCreationDate +
                 ", postEditDate=" + postEditDate +

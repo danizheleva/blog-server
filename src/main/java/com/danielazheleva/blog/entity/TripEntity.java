@@ -24,9 +24,6 @@ public class TripEntity implements Serializable {
     private Date tripStartDate;
 
     @Column(nullable = false)
-    private Integer tripDuration;
-
-    @Column(nullable = false)
     private Date postCreationDate;
 
     @Column
@@ -41,7 +38,6 @@ public class TripEntity implements Serializable {
                 "id=" + id +
                 ", tripTitle='" + tripTitle + '\'' +
                 ", tripStartDate=" + tripStartDate +
-                ", tripDuration=" + tripDuration +
                 ", postCreationDate=" + postCreationDate +
                 ", postEditDate=" + postEditDate +
                 ", listOfDays=" + listOfDays +

@@ -10,7 +10,6 @@ public class TripDetailRequestModel {
 
     private String tripTitle;
     private Date tripStartDate;
-    private Integer tripDuration;
     private List<DayRequestModel> listOfDays;
 
     private Date postCreationDate;

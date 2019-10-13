@@ -75,7 +75,6 @@ public class TripServiceImpl implements TripService {
         }
 
         tripToEdit.setTripTitle(newTripDetails.getTripTitle());
-        tripToEdit.setTripDuration(newTripDetails.getTripDuration());
         tripToEdit.setTripStartDate(newTripDetails.getTripStartDate());
         tripToEdit.setPostEditDate(newTripDetails.getPostEditDate());
         TripEntity savedTrip = tripRepository.save(tripToEdit);

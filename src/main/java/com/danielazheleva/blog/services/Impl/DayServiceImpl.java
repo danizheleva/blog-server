@@ -75,6 +75,25 @@ public class DayServiceImpl implements DayService {
     }
 
     @Override
+    public TripDto createDay(DayRequestModel day, Long tripId) {
+
+        TripDto tripDto = tripService.getTrip(tripId);
+        TripEntity tripEntity = mm.map(tripDto, TripEntity.class);
+
+        DayDto dayDto = mm.map(day, DayDto.class);
+        DayEntity dayEntity = mm.map(dayDto, DayEntity.class);
+        dayEntity.setTripDetail(tripEntity);
+
+        DayEntity savedDay = dayRepository.save(dayEntity);
+
+        tripEntity.getListOfDays().add(savedDay);
+
+        TripDto editedTrip = mm.map(tripEntity, TripDto.class);
+
+        return editedTrip;
+    }
+
+    @Override
     public void deleteDay(Long dayId) {
         dayRepository.deleteById(dayId);
     }
