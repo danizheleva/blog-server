@@ -7,5 +7,7 @@ public class DayRest {
 
     private Integer dayNumber;
     private String dayText;
+    private String city;
+    private String country;
 
 }

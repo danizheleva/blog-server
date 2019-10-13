@@ -19,4 +19,19 @@ public class TripDto implements Serializable {
     private Date postCreationDate;
     private Date postEditDate;
     private Boolean addDayInfo;
+
+
+    @Override
+    public String toString() {
+        return "TripDto{" +
+                "id=" + id +
+                ", tripTitle='" + tripTitle + '\'' +
+                ", tripStartDate=" + tripStartDate +
+                ", tripDuration=" + tripDuration +
+                ", listOfDays=" + listOfDays +
+                ", postCreationDate=" + postCreationDate +
+                ", postEditDate=" + postEditDate +
+                ", addDayInfo=" + addDayInfo +
+                '}';
+    }
 }

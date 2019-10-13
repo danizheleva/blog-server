@@ -1,5 +1,6 @@
 package com.danielazheleva.blog.controllers;
 
+import com.danielazheleva.blog.models.request.DayRequestModel;
 import com.danielazheleva.blog.models.responce.DayRest;
 import com.danielazheleva.blog.models.responce.TripRest;
 import com.danielazheleva.blog.repository.TripRepository;
@@ -58,20 +59,10 @@ public class TripsController {
         return mm.map(foundTrip, TripRest.class);
     }
 
-    // GET ALL DAYS FOR ONE TRIP
-    @GetMapping("/{tripId}/days")
-    public List<DayRest> getDaysOfTrip(@PathVariable Long tripId) {
-
-        List<DayDto> dayDto = dayService.getAllDaysForTrip(tripId);
-
-        Type listType = new TypeToken<List<DayRest>>() {}.getType();
-        return mm.map(dayDto, listType);
-
-    }
-
     // EDIT TRIP DETAILS
     @PutMapping("/{tripId}")
-    public TripRest editTripDetails(@RequestBody TripDetailRequestModel newTripDetails, @PathVariable Long tripId) {
+    public TripRest editTripDetails(@RequestBody TripDetailRequestModel newTripDetails,
+                                    @PathVariable Long tripId) {
 
         TripDto newTrip = tripService.editTripDetails(newTripDetails, tripId);
 
@@ -83,6 +74,17 @@ public class TripsController {
     @DeleteMapping("/{id}")
     public void deleteTrip(@PathVariable Long id) {
         tripService.deleteTrip(id);
+    }
+
+    // GET ALL DAYS FOR ONE TRIP
+    @GetMapping("/{tripId}/days")
+    public List<DayRest> getDaysOfTrip(@PathVariable Long tripId) {
+
+        List<DayDto> dayDto = dayService.getAllDaysForTrip(tripId);
+
+        Type listType = new TypeToken<List<DayRest>>() {}.getType();
+        return mm.map(dayDto, listType);
+
     }
 
     // GET ONE DAY OF ONE TRIP
@@ -100,5 +102,25 @@ public class TripsController {
         DayDto dayDto = dayService.getDay(dayId);
 
         return mm.map(dayDto, DayRest.class);
+    }
+
+    // EDIT DAY
+    @PutMapping("/{tripId}/days/{dayId}")
+    public DayRest editDay(@RequestBody DayRequestModel newDay,
+                           @PathVariable Long tripId,
+                           @PathVariable Long dayId) {
+
+        DayDto editedDay = dayService.editDay(newDay, tripId, dayId);
+
+        return mm.map(editedDay, DayRest.class);
+    }
+
+    // DELETE ONE DAY OF ONE TRIP
+    @DeleteMapping("/{tripId}/days/{dayId}")
+    public String deleteDay(@PathVariable Long dayId) {
+
+        dayService.deleteDay(dayId);
+
+        return "day deleted";
     }
 }

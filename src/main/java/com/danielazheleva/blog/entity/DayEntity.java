@@ -31,4 +31,16 @@ public class DayEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "trips_id")
     private TripEntity tripDetail;
+
+    @Override
+    public String toString() {
+        return "DayEntity{" +
+                "id=" + id +
+                ", dayNumber=" + dayNumber +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", postText='" + postText + '\'' +
+                ", tripDetail=" + tripDetail +
+                '}';
+    }
 }

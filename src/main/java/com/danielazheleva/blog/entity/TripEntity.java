@@ -34,4 +34,17 @@ public class TripEntity implements Serializable {
 
     @OneToMany(mappedBy = "tripDetail", cascade = CascadeType.ALL)
     private List<DayEntity> listOfDays;
+
+    @Override
+    public String toString() {
+        return "TripEntity{" +
+                "id=" + id +
+                ", tripTitle='" + tripTitle + '\'' +
+                ", tripStartDate=" + tripStartDate +
+                ", tripDuration=" + tripDuration +
+                ", postCreationDate=" + postCreationDate +
+                ", postEditDate=" + postEditDate +
+                ", listOfDays=" + listOfDays +
+                '}';
+    }
 }
