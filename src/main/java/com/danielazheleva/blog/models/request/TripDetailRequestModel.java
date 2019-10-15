@@ -14,6 +14,4 @@ public class TripDetailRequestModel {
 
     private Date postCreationDate;
     private Date postEditDate;
-
-    private Boolean addDayInfo;
 }
