@@ -92,11 +92,10 @@ public class TripServiceImpl implements TripService {
 
     public void deleteTrip(Long id) {
 
-        try {
-            tripRepository.deleteById(id);
-        } catch (Error e) {
-            LOG.warn("Could not delete trip with id {}", id);
+        if(tripRepository.getOne(id) == null) {
+            throw new TripServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMsg());
         }
 
+        tripRepository.deleteById(id);
     }
 }

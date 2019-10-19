@@ -10,6 +10,7 @@ import com.danielazheleva.blog.shared.TripDto;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class TripServiceImplTest {
 
@@ -37,7 +38,7 @@ class TripServiceImplTest {
     private Date aDate = new Date(System.currentTimeMillis());
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         MockitoAnnotations.initMocks(this);
 
         // Create one mock TripEntity
@@ -106,6 +107,27 @@ class TripServiceImplTest {
         assertEquals(savedTrip.getPostEditDate(), mockTripEntity.getPostEditDate());
         assertEquals(savedTrip.getPostCreationDate(), mockTripEntity.getPostCreationDate());
         assertEquals(savedTrip.getListOfDays().size(), mockTripEntity.getListOfDays().size());
+    }
+
+
+    @Test
+    void testDeleteTrip() {
+        when(tripRepositoryMock.getOne(anyLong())).thenReturn(mockTripEntity);
+        doNothing().when(tripRepositoryMock).deleteById(anyLong());
+
+        tripService.deleteTrip(anyLong());
+
+        Mockito.verify(tripRepositoryMock, times(1)).deleteById(anyLong());
+
+    }
+
+    @Test
+    void testDeleteTrip_NoTripFound() {
+        when(tripRepositoryMock.getOne(anyLong())).thenReturn(null);
+
+        assertThrows(TripServiceException.class,
+                () -> tripService.deleteTrip(anyLong()));
+        verify(tripRepositoryMock, times(0)).deleteById(anyLong());
     }
 
     private List<DayEntity> generateMockDayEntityList() {
