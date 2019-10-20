@@ -70,23 +70,17 @@ public class TripServiceImpl implements TripService {
         return mm.map(tripEntity, TripDto.class);
     }
 
-    @Override
     public TripDto editTripDetails(TripDetailRequestModel newTripDetails, Long tripId) {
 
         TripEntity tripToEdit = tripRepository.getOne(tripId);
 
-        // If no trip found, create new one
         if ( tripToEdit == null ) {
-            TripDto newTripDto = mm.map(newTripDetails, TripDto.class);
-            TripEntity newTrip = mm.map(newTripDto, TripEntity.class);
-            TripEntity savedTrip = tripRepository.save(newTrip);
-            return mm.map(savedTrip, TripDto.class);
+            throw new TripServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMsg());
         }
 
-        tripToEdit.setTripTitle(newTripDetails.getTripTitle());
-        tripToEdit.setTripStartDate(newTripDetails.getTripStartDate());
-        tripToEdit.setPostEditDate(newTripDetails.getPostEditDate());
-        TripEntity savedTrip = tripRepository.save(tripToEdit);
+        TripEntity tripToSave = updateTripEntity(tripToEdit, newTripDetails);
+        TripEntity savedTrip = tripRepository.save(tripToSave);
+
         return mm.map(savedTrip, TripDto.class);
     }
 
@@ -97,5 +91,14 @@ public class TripServiceImpl implements TripService {
         }
 
         tripRepository.deleteById(id);
+    }
+
+    protected TripEntity updateTripEntity(TripEntity tripToEdit, TripDetailRequestModel newTripDetails) {
+
+        tripToEdit.setTripTitle(newTripDetails.getTripTitle());
+        tripToEdit.setTripStartDate(newTripDetails.getTripStartDate());
+        tripToEdit.setPostEditDate(newTripDetails.getPostEditDate());
+
+        return tripToEdit;
     }
 }

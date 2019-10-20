@@ -122,6 +122,37 @@ class TripServiceImplTest {
     }
 
     @Test
+    void editTripDetails_noTripFound() {
+        when(tripRepositoryMock.getOne(anyLong())).thenReturn(null);
+
+        Mockito.verify(tripRepositoryMock, times(0)).save(any(TripEntity.class));
+
+        assertThrows(TripServiceException.class,
+                () -> tripService.editTripDetails(new TripDetailRequestModel(), anyLong()));
+
+    }
+
+    @Test
+    void testUpdateTripEntity() {
+        Date newDate = new Date(System.currentTimeMillis() + 10000);
+
+        TripDetailRequestModel newTripDetails = new TripDetailRequestModel();
+        newTripDetails.setTripTitle("new_title");
+        newTripDetails.setTripStartDate(newDate);
+        newTripDetails.setPostEditDate(newDate);
+        newTripDetails.setPostCreationDate(newDate);
+        newTripDetails.setListOfDays(null);
+
+        TripEntity returned = tripService.updateTripEntity(mockTripEntity, newTripDetails);
+
+        assertEquals(returned.getTripTitle(), "new_title");
+        assertEquals(returned.getListOfDays(), mockTripEntity.getListOfDays());
+        assertEquals(returned.getPostEditDate(), newDate);
+        assertEquals(returned.getPostCreationDate(), mockTripEntity.getPostCreationDate());
+        assertEquals(returned.getTripStartDate(), mockTripEntity.getTripStartDate());
+    }
+
+    @Test
     void testDeleteTrip_NoTripFound() {
         when(tripRepositoryMock.getOne(anyLong())).thenReturn(null);
 
@@ -177,4 +208,6 @@ class TripServiceImplTest {
 
         return toReturn;
     }
+
+
 }
