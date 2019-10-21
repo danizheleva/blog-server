@@ -2,7 +2,9 @@ package com.danielazheleva.blog.services.Impl;
 
 import com.danielazheleva.blog.entity.DayEntity;
 import com.danielazheleva.blog.entity.TripEntity;
+import com.danielazheleva.blog.exceptions.DayServiceException;
 import com.danielazheleva.blog.models.request.DayRequestModel;
+import com.danielazheleva.blog.models.responce.ErrorMessages;
 import com.danielazheleva.blog.repository.DayRepository;
 import com.danielazheleva.blog.services.DayService;
 import com.danielazheleva.blog.services.TripService;
@@ -35,7 +37,9 @@ public class DayServiceImpl implements DayService {
         List<DayDto> foundValue = new ArrayList<>();
         TripDto trip = tripService.getTrip(tripId);
 
-        if ( trip == null ) { return foundValue; }
+        if ( trip == null ) {
+            throw new DayServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMsg());
+        }
 
         return trip.getListOfDays();
 
@@ -46,6 +50,10 @@ public class DayServiceImpl implements DayService {
 
         DayEntity dayEntity = dayRepository.getOne(dayId);
 
+        if(dayEntity == null ){
+            throw new DayServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMsg());
+        }
+
         return mm.map(dayEntity, DayDto.class);
     }
 
@@ -54,21 +62,24 @@ public class DayServiceImpl implements DayService {
                           Long tripId,
                           Long dayId) {
 
-        TripDto correspondingTrip = tripService.getTrip(tripId);
         DayEntity dayToEditEntity = dayRepository.getOne(dayId);
-        TripEntity tripEntity = mm.map(correspondingTrip, TripEntity.class);
+
+        if (dayToEditEntity == null) {
+            throw new DayServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMsg());
+        }
+
+        TripDto correspondingTrip = tripService.getTrip(tripId);
 
         int lengthOfTrip = correspondingTrip.getListOfDays().size();
 
+        if( newDay.getDayNumber() > lengthOfTrip ) {
+            throw new DayServiceException(ErrorMessages.DAY_OUT_OF_BOUND.getErrorMsg());
+        }
+
+        dayToEditEntity.setDayNumber(newDay.getDayNumber());
         dayToEditEntity.setCity(newDay.getCity());
         dayToEditEntity.setCountry(newDay.getCountry());
-        if( newDay.getDayNumber() > lengthOfTrip ) {
-            LOG.warn("You are trying to add a new day");
-        } else {
-            dayToEditEntity.setDayNumber(newDay.getDayNumber());
-        }
         dayToEditEntity.setPostText(newDay.getPostText());
-        dayToEditEntity.setTripDetail(tripEntity);
 
         dayRepository.save(dayToEditEntity);
         return mm.map(dayToEditEntity, DayDto.class);
@@ -82,19 +93,21 @@ public class DayServiceImpl implements DayService {
 
         DayDto dayDto = mm.map(day, DayDto.class);
         DayEntity dayEntity = mm.map(dayDto, DayEntity.class);
+        tripEntity.getListOfDays().add(dayEntity);
         dayEntity.setTripDetail(tripEntity);
 
-        DayEntity savedDay = dayRepository.save(dayEntity);
+        dayRepository.save(dayEntity);
 
-        tripEntity.getListOfDays().add(savedDay);
-
-        TripDto editedTrip = mm.map(tripEntity, TripDto.class);
-
-        return editedTrip;
+        return mm.map(tripEntity, TripDto.class);
     }
 
     @Override
     public void deleteDay(Long dayId) {
+
+        if(dayRepository.getOne(dayId) == null) {
+            throw new DayServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMsg());
+        }
+
         dayRepository.deleteById(dayId);
     }
 }
