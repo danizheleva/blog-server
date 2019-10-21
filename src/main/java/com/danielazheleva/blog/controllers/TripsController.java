@@ -89,15 +89,7 @@ public class TripsController {
 
     // GET ONE DAY OF ONE TRIP
     @GetMapping("/{tripId}/days/{dayId}")
-    public DayRest getDay(@PathVariable Long tripId,
-                          @PathVariable Long dayId) {
-
-        TripDto foundTrip = tripService.getTrip(tripId);
-        List<DayDto> daysOTrip = foundTrip.getListOfDays();
-
-        if (daysOTrip == null) {
-            return null;
-        }
+    public DayRest getDay(@PathVariable Long dayId) {
 
         DayDto dayDto = dayService.getDay(dayId);
 
