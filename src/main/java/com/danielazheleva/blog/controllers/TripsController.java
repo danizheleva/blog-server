@@ -29,9 +29,6 @@ public class TripsController {
     private TripService tripService;
 
     @Autowired
-    private TripRepository tripRepository;
-
-    @Autowired
     private DayService dayService;
 
     private final ModelMapper mm = new ModelMapper();

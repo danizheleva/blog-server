@@ -1,6 +1,8 @@
 package com.danielazheleva.blog.controllers;
 
+import com.danielazheleva.blog.models.request.DayRequestModel;
 import com.danielazheleva.blog.models.request.TripDetailRequestModel;
+import com.danielazheleva.blog.models.responce.DayRest;
 import com.danielazheleva.blog.models.responce.TripRest;
 import com.danielazheleva.blog.services.DayService;
 import com.danielazheleva.blog.services.TripService;
@@ -12,13 +14,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 class TripsControllerTest {
@@ -30,10 +32,11 @@ class TripsControllerTest {
     TripService tripServiceMock;
 
     @Mock
-    DayService dayService;
+    DayService dayServiceMock;
 
     private TripDto mockTripDto = new TripDto();
     private DayDto mockDayDto = new DayDto();
+    private List<DayDto> listOfDayDto = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
@@ -48,9 +51,9 @@ class TripsControllerTest {
 
         DayDto day1 = generateDayDto("mock_country", "mock_city", 1, date, mockTripDto);
         DayDto day2 = generateDayDto("mock_country", "mock_city", 2, date, mockTripDto);
-        List<DayDto> listOfDays = Arrays.asList(day1, day2);
+        listOfDayDto = Arrays.asList(day1, day2);
 
-        mockTripDto.setListOfDays(listOfDays);
+        mockTripDto.setListOfDays(listOfDayDto);
     }
 
     @Test
@@ -72,7 +75,7 @@ class TripsControllerTest {
     void testCreateNewTrip() {
         when(tripServiceMock.saveTrip(any(TripDetailRequestModel.class))).thenReturn(mockTripDto);
 
-        TripRest returned = tripsController.createNewTrip(any(TripDetailRequestModel.class));
+        TripRest returned = tripsController.createNewTrip(new TripDetailRequestModel());
 
         assertEquals(returned.getTripTitle(), mockTripDto.getTripTitle());
         assertEquals(returned.getPostEditDate(), mockTripDto.getPostEditDate());
@@ -107,34 +110,64 @@ class TripsControllerTest {
 
         when(tripServiceMock.editTripDetails(any(TripDetailRequestModel.class), anyLong())).thenReturn(newTripDto);
 
-        TripRest returned = tripsController.editTripDetails(any(TripDetailRequestModel.class), anyLong());
+        TripRest returned = tripsController.editTripDetails(new TripDetailRequestModel(), 1L);
 
         assertEquals(returned.getTripTitle(), newTripDto.getTripTitle());
         assertEquals(returned.getPostEditDate(), newTripDto.getPostEditDate());
         assertEquals(returned.getTripStartDate(), newTripDto.getTripStartDate());
         assertEquals(returned.getPostCreationDate(), newTripDto.getPostCreationDate());
-        assertEquals(returned.getListOfDays().size(), newTripDto.getListOfDays().size());
     }
 
-//    @Test
-//    void getDaysOfTrip() {
-//    }
-//
-//    @Test
-//    void getDay() {
-//    }
-//
-//    @Test
-//    void createDay() {
-//    }
-//
-//    @Test
-//    void editDay() {
-//    }
-//
-//    @Test
-//    void deleteDay() {
-//    }
+    @Test
+    void getDaysOfTrip() {
+        when(dayServiceMock.getAllDaysForTrip(anyLong())).thenReturn(listOfDayDto);
+
+        List<DayRest> returned = tripsController.getDaysOfTrip(anyLong());
+
+        assertEquals(returned.size(), listOfDayDto.size());
+        assertEquals(returned.get(0).getCountry(), listOfDayDto.get(0).getCountry());
+        assertEquals(returned.get(0).getCity(), listOfDayDto.get(0).getCity());
+        assertEquals(returned.get(0).getDayNumber(), listOfDayDto.get(0).getDayNumber());
+        assertEquals(returned.get(0).getDayText(), listOfDayDto.get(0).getPostText());
+    }
+
+    @Test
+    void getDay() {
+        when(dayServiceMock.getDay(anyLong())).thenReturn(mockDayDto);
+
+        DayRest returned = tripsController.getDay(anyLong());
+
+        assertEquals(returned.getCountry(), mockDayDto.getCountry());
+        assertEquals(returned.getCity(), mockDayDto.getCity());
+        assertEquals(returned.getDayNumber(), mockDayDto.getDayNumber());
+        assertEquals(returned.getDayText(), mockDayDto.getPostText());
+    }
+
+
+    @Test
+    void createDay() {
+        when(dayServiceMock.createDay(any(DayRequestModel.class), anyLong())).thenReturn(mockTripDto);
+
+        TripRest returned = tripsController.createDay(new DayRequestModel(), 1L);
+
+        assertEquals(returned.getTripTitle(), mockTripDto.getTripTitle());
+        assertEquals(returned.getPostEditDate(), mockTripDto.getPostEditDate());
+        assertEquals(returned.getTripStartDate(), mockTripDto.getTripStartDate());
+        assertEquals(returned.getPostCreationDate(), mockTripDto.getPostCreationDate());
+        assertEquals(returned.getListOfDays().size(), mockTripDto.getListOfDays().size());
+    }
+
+    @Test
+    void editDay() {
+        when(dayServiceMock.editDay(any(DayRequestModel.class), anyLong(), anyLong())).thenReturn(mockDayDto);
+
+        DayRest returned = tripsController.editDay(new DayRequestModel(), 1L, 1L);
+
+        assertEquals(returned.getCountry(), mockDayDto.getCountry());
+        assertEquals(returned.getCity(), mockDayDto.getCity());
+        assertEquals(returned.getDayNumber(), mockDayDto.getDayNumber());
+        assertEquals(returned.getDayText(), mockDayDto.getPostText());
+    }
 
     private DayDto generateDayDto(String country, String city, int dayNum, Date date, TripDto tripDto){
         DayDto toReturn = new DayDto();
