@@ -1,0 +1,17 @@
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/services/Impl/TripServiceImpl.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/shared/DayDto.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/services/TripService.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/models/request/TripDetailRequestModel.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/entity/DayEntity.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/models/responce/DayRest.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/models/responce/TripRest.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/BlogApplication.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/controllers/TripsController.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/repository/TripRepository.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/services/Impl/DayServiceImpl.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/shared/TripDto.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/repository/DayRepository.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/utils/RandomIdGenerator.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/entity/TripEntity.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/services/DayService.java
+/Users/danielazheleva/Documents/Dev/blog/src/main/java/com/danielazheleva/blog/models/request/DayRequestModel.java
