@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormMainComponent } from './form-main/form-main.component';
-import { TripDetailComponent } from './trip-detail/trip-detail.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [FormMainComponent, TripDetailComponent],
+  declarations: [
+    FormMainComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ]
 })
 export class TripFormModule { }

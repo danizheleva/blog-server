@@ -1,1 +1,36 @@
-<p>form-main works!</p>
+<form [formGroup]="tripDetailsForm" (ngSubmit)="onSubmit()">
+  <label>
+    Trip Title:
+    <input type="text" formControlName="tripTitle">
+  </label>
+  <label>
+    Trip Start Date:
+    <input type="text" formControlName="tripStartDate">
+  </label>
+
+  <div formGroupName="day">
+    <h3>Day</h3>
+
+    <label>
+      Day Number:
+      <input type="number" formControlName="number">
+    </label>
+    <label>
+      Country:
+      <input type="text" formControlName="country">
+    </label>
+    <label>
+      City:
+      <input type="text" formControlName="city">
+    </label>
+    <label>
+      Text:
+      <input type="textarea" formControlName="text">
+    </label>
+  </div>
+
+  <button class="btn btn-flat btn-success" type="submit" [disabled]="!tripDetailsForm.valid">Submit</button>
+</form>
+
+
+

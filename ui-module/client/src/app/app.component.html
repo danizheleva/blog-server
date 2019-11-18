@@ -1,2 +1,14 @@
-<app-trip-list></app-trip-list>
-<router-outlet></router-outlet>
+<nav class="navbar navbar-dark bg-dark">
+      <button class="btn btn-flat btn-primary" type="button" role="button"
+          routerLink="/" routerLinkActive="active">
+      Home
+      </button>
+      <button class="btn btn-flat btn-success" type="button" role="button"
+          routerLink="/upload-form" routerLinkActive="active">
+      Add Trip
+      </button>
+</nav>
+<main class="p-0">
+  <router-outlet></router-outlet>
+</main>
+
