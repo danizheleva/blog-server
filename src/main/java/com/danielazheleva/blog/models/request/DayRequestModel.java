@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DayRequestModel {
 
+    //TODO - add day title
     private Integer dayNumber;
 
     private String country;

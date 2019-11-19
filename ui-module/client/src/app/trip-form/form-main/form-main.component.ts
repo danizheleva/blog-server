@@ -23,6 +23,7 @@ export class FormMainComponent {
 
      control.push(
        this.fb.group({
+        dayTitle: [''],
         number: [],
         country: [''],
         city: [''],
