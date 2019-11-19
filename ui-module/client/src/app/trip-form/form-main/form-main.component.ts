@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-form-main',
@@ -8,24 +8,38 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class FormMainComponent {
 
-  tripDetailsForm = new FormGroup({
-    tripTitle: new FormControl(''),
-    tripStartDate: new FormControl(''),
+  tripDetailsForm: FormGroup;
 
-    day: new FormGroup({
-      number: new FormControl(0),
-      country: new FormControl(""),
-      city: new FormControl(""),
-      text: new FormControl("")
+  constructor(private fb: FormBuilder) {
+    this.tripDetailsForm = this.fb.group({
+      tripTitle: [''],
+      tripStartDate: [''],
+      days: this.fb.array([])
     })
-  });
+   }
 
-  constructor() { }
+   addNewDay() {
+     let control = <FormArray>this.tripDetailsForm.controls.days;
+
+     control.push(
+       this.fb.group({
+        number: [],
+        country: [''],
+        city: [''],
+        text: ['']
+       })
+     )
+   }
+
+   deleteDay(index){
+    let control = <FormArray>this.tripDetailsForm.controls.days;
+    control.removeAt(index);
+  }
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
-
     console.log(this.tripDetailsForm.value);
   }
+
 
 }

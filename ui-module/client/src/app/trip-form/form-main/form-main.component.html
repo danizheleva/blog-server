@@ -8,25 +8,35 @@
     <input type="text" formControlName="tripStartDate">
   </label>
 
-  <div formGroupName="day">
-    <h3>Day</h3>
+  <button type="button" (click)="addNewDay()">Add Day</button>
 
-    <label>
-      Day Number:
-      <input type="number" formControlName="number">
-    </label>
-    <label>
-      Country:
-      <input type="text" formControlName="country">
-    </label>
-    <label>
-      City:
-      <input type="text" formControlName="city">
-    </label>
-    <label>
-      Text:
-      <input type="textarea" formControlName="text">
-    </label>
+  <div formArrayName="days">
+    <div *ngFor="let day of tripDetailsForm.get('days').controls; let i=index">
+      <div [formGroupName]="i">
+        <h3>Add new Day {{i}}</h3>
+        <label>
+          Day Number:
+          <input type="number" formControlName="number">
+        </label>
+        <label>
+          Country:
+          <input type="text" formControlName="country">
+        </label>
+        <label>
+          City:
+          <input type="text" formControlName="city">
+        </label>
+        <label>
+          Text:
+          <input type="textarea" formControlName="text">
+        </label>
+
+        <button type="button" (click)="deleteDay(i)">Delete Day {{i}}</button>
+      </div>
+    </div>
+
+
+
   </div>
 
   <button class="btn btn-flat btn-success" type="submit" [disabled]="!tripDetailsForm.valid">Submit</button>
