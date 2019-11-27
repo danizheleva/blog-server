@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,10 +7,19 @@ import { Observable } from 'rxjs';
 })
 export class TripService {
 
-  constructor(private http: HttpClient) { }
+  private baseUrl: string = "//localhost:8080/trips"
+  constructor(private _http: HttpClient) { }
 
   getAll(): Observable<any> {
-    return this.http.get('//localhost:8080/trips')
+    return this._http.get(this.baseUrl)
+  }
+
+  public registerTrip(obj): Observable<any> {
+    return this._http.post(this.baseUrl, obj, {
+      headers: new HttpHeaders({
+        'ContentType': 'application/json',
+      })
+    });
   }
 
 }

@@ -3,7 +3,6 @@ package com.danielazheleva.blog.controllers;
 import com.danielazheleva.blog.models.request.DayRequestModel;
 import com.danielazheleva.blog.models.responce.DayRest;
 import com.danielazheleva.blog.models.responce.TripRest;
-import com.danielazheleva.blog.repository.TripRepository;
 import com.danielazheleva.blog.services.DayService;
 import com.danielazheleva.blog.services.Impl.TripServiceImpl;
 import com.danielazheleva.blog.shared.DayDto;
@@ -36,22 +35,22 @@ public class TripsController {
 
     // GET ALL TRIPS
     @GetMapping
-    public List<TripRest> getAllTrips(){
+    List<TripRest> getAllTrips(){
         List<TripDto> tripDtoList = tripService.getAllTrips();
         return mm.map(tripDtoList, new TypeToken<List<TripRest>>(){}.getType());
     }
 
     // CREATE NEW TRIP
     @PostMapping
-    public TripRest createNewTrip(@RequestBody TripDetailRequestModel tripDetailRequestModel){
-
+    TripRest createNewTrip(@RequestBody TripDetailRequestModel tripDetailRequestModel){
+        LOG.info("received data: {}", tripDetailRequestModel);
         TripDto createdTrip = tripService.saveTrip(tripDetailRequestModel);
         return mm.map(createdTrip, TripRest.class);
     }
 
     // GET ONE TRIP
     @GetMapping("/{id}")
-    public TripRest getTrip(@PathVariable Long id){
+    TripRest getTrip(@PathVariable Long id){
         TripDto foundTrip = tripService.getTrip(id);
 
         return mm.map(foundTrip, TripRest.class);
@@ -59,7 +58,7 @@ public class TripsController {
 
     // EDIT TRIP DETAILS
     @PutMapping("/{tripId}")
-    public TripRest editTripDetails(@RequestBody TripDetailRequestModel newTripDetails,
+    TripRest editTripDetails(@RequestBody TripDetailRequestModel newTripDetails,
                                     @PathVariable Long tripId) {
 
         TripDto newTrip = tripService.editTripDetails(newTripDetails, tripId);
@@ -76,7 +75,7 @@ public class TripsController {
 
     // GET ALL DAYS FOR ONE TRIP
     @GetMapping("/{tripId}/days")
-    public List<DayRest> getDaysOfTrip(@PathVariable Long tripId) {
+    List<DayRest> getDaysOfTrip(@PathVariable Long tripId) {
 
         List<DayDto> dayDto = dayService.getAllDaysForTrip(tripId);
 
@@ -96,7 +95,7 @@ public class TripsController {
 
     // CREATE DAY
     @PostMapping("/{tripId}/days")
-    public TripRest createDay(@RequestBody DayRequestModel day,
+    TripRest createDay(@RequestBody DayRequestModel day,
                               @PathVariable Long tripId) {
 
         TripDto tripWithNewDay = dayService.createDay(day, tripId);
@@ -106,7 +105,7 @@ public class TripsController {
 
     // EDIT DAY
     @PutMapping("/{tripId}/days/{dayId}")
-    public DayRest editDay(@RequestBody DayRequestModel newDay,
+    DayRest editDay(@RequestBody DayRequestModel newDay,
                            @PathVariable Long tripId,
                            @PathVariable Long dayId) {
 
