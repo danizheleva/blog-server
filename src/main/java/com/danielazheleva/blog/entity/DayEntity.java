@@ -17,6 +17,9 @@ public class DayEntity implements Serializable {
     private long id;
 
     @Column
+    private String dayTitle;
+
+    @Column
     private Integer dayNumber;
 
     @Column

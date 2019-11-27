@@ -25,7 +25,7 @@ export class FormMainComponent {
 
      control.push(
        this.fb.group({
-        //dayTitle: [''],
+        dayTitle: [''],
         dayNumber: [0],
         country: [''],
         city: [''],

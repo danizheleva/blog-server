@@ -45,8 +45,8 @@ class DayServiceImplTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        DayDto day1 = generateMockDayDto("city1","country1", 1, "text1");
-        DayDto day2 = generateMockDayDto("city2","country2", 2, "text2");
+        DayDto day1 = generateMockDayDto("city1", "mock_title", "country1", 1, "text1");
+        DayDto day2 = generateMockDayDto("city2","mock_title","country2", 2, "text2");
         List<DayDto> listOfDays = new ArrayList<>();
         listOfDays.add(day1);
         listOfDays.add(day2);
@@ -190,9 +190,10 @@ class DayServiceImplTest {
                 () -> dayService.deleteDay(anyLong()));
     }
 
-    private DayDto generateMockDayDto(String city, String country, int dayNumber, String text) {
+    private DayDto generateMockDayDto(String city, String title, String country, int dayNumber, String text) {
         DayDto day = new DayDto();
         day.setCity(city);
+        day.setDayTitle(title);
         day.setCountry(country);
         day.setTripDetail(mockTripDto);
         day.setDayNumber(dayNumber);
@@ -202,7 +203,7 @@ class DayServiceImplTest {
     }
 
     private DayRequestModel generateMockDayRequestModel(){
-        return new DayRequestModel(1, "test_country", "test_city", "fake_text");
+        return new DayRequestModel(1, "test_title","test_country", "test_city", "fake_text");
     }
 
 }
