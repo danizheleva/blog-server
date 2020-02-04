@@ -10,6 +10,7 @@ public class TripRest {
 
     private String tripTitle;
     private Date tripStartDate;
+    private String tripSummary;
     private List<DayRest> listOfDays;
     private Date postCreationDate;
     private Date postEditDate;

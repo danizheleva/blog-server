@@ -1,21 +1,39 @@
 
 
 <div class="container">
-   <div class="jumbotron text-center">
-    <div class="row ">
-      <h1>Main Home Page</h1>
-
+   <div class="jumbotron">
+    <div class="row justify-content-center">
+      <h1>My Adventures</h1>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-4 my-1" *ngFor="let trip of trips">
+  <div class="row" *ngFor="let trip of trips">
+    <div class="col-12 my-1" >
         <div class="card ">
-          <div class="card-body text-center">
-            <h5 class="card-title"> {{ trip.tripTitle }}</h5>
-            <p class="card-text">Summary of trip</p>
-            <a href="#" class="card-link">Open</a>
-            <footer>{{ trip.postCreationDate }}</footer>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-1">
+                <div class="row p-1 justify-content-center">
+                  <span class="badge badge-pill badge-success">{{ getTripLength(trip) }} days</span>
+                </div>
+                <div class="row p-1 justify-content-center">
+                  <span class="badge badge-pill badge-primary">{{ trip.tripStartDate | date: 'MMM yyyy' }}</span>
+                </div>
+              </div>
+              <div class="col-11">
+                <div class="row">
+                  <div class="col-12"><h5 class="card-title"> {{ trip.tripTitle }}</h5></div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <p class="card-text">{{ trip.tripSummary | textTruncate : 250 : true}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <a href="#" class="card-link">Open</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -15,6 +15,7 @@ public class TripDto implements Serializable {
     private long id;
     private String tripTitle;
     private Date tripStartDate;
+    private String tripSummary;
     private List<DayDto> listOfDays;
     private Date postCreationDate;
     private Date postEditDate;

@@ -6,11 +6,13 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TripListComponent } from './trip-list/trip-list.component';
+import { TextTruncatePipe } from './utilities/pipes/text-truncate.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TripListComponent
+    TripListComponent,
+    TextTruncatePipe
   ],
   imports: [
     BrowserModule,

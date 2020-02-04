@@ -29,6 +29,9 @@ public class TripEntity implements Serializable {
     @Column
     private Date postEditDate;
 
+    @Column(name = "trip_summary")
+    private String tripSummary;
+
     @OneToMany(mappedBy = "tripDetail", cascade = CascadeType.ALL)
     private List<DayEntity> listOfDays;
 
