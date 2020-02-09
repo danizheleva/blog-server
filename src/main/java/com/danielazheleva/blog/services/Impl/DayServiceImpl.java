@@ -9,6 +9,7 @@ import com.danielazheleva.blog.repository.DayRepository;
 import com.danielazheleva.blog.services.DayService;
 import com.danielazheleva.blog.services.TripService;
 import com.danielazheleva.blog.shared.DayDto;
+import com.danielazheleva.blog.shared.LocationDto;
 import com.danielazheleva.blog.shared.TripDto;
 import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
@@ -77,8 +78,6 @@ public class DayServiceImpl implements DayService {
         }
 
         dayToEditEntity.setDayNumber(newDay.getDayNumber());
-        dayToEditEntity.setCity(newDay.getCity());
-        dayToEditEntity.setCountry(newDay.getCountry());
         dayToEditEntity.setPostText(newDay.getPostText());
 
         dayRepository.save(dayToEditEntity);

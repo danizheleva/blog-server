@@ -125,8 +125,6 @@ class TripsControllerTest {
         List<DayRest> returned = tripsController.getDaysOfTrip(anyLong());
 
         assertEquals(returned.size(), listOfDayDto.size());
-        assertEquals(returned.get(0).getCountry(), listOfDayDto.get(0).getCountry());
-        assertEquals(returned.get(0).getCity(), listOfDayDto.get(0).getCity());
         assertEquals(returned.get(0).getDayNumber(), listOfDayDto.get(0).getDayNumber());
         assertEquals(returned.get(0).getDayText(), listOfDayDto.get(0).getPostText());
     }
@@ -137,8 +135,6 @@ class TripsControllerTest {
 
         DayRest returned = tripsController.getDay(anyLong());
 
-        assertEquals(returned.getCountry(), mockDayDto.getCountry());
-        assertEquals(returned.getCity(), mockDayDto.getCity());
         assertEquals(returned.getDayNumber(), mockDayDto.getDayNumber());
         assertEquals(returned.getDayText(), mockDayDto.getPostText());
     }
@@ -163,16 +159,12 @@ class TripsControllerTest {
 
         DayRest returned = tripsController.editDay(new DayRequestModel(), 1L, 1L);
 
-        assertEquals(returned.getCountry(), mockDayDto.getCountry());
-        assertEquals(returned.getCity(), mockDayDto.getCity());
         assertEquals(returned.getDayNumber(), mockDayDto.getDayNumber());
         assertEquals(returned.getDayText(), mockDayDto.getPostText());
     }
 
     private DayDto generateDayDto(String country, String city, int dayNum, Date date, TripDto tripDto){
         DayDto toReturn = new DayDto();
-        toReturn.setCountry(country);
-        toReturn.setCity(city);
         toReturn.setDayNumber(dayNum);
         toReturn.setTripDetail(tripDto);
 

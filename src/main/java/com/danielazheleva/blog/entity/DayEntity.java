@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 
 @Data
@@ -23,25 +24,25 @@ public class DayEntity implements Serializable {
     private Integer dayNumber;
 
     @Column
-    private String country;
-
-    @Column
-    private String city;
-
-    @Column
     private String postText;
 
     @ManyToOne
     @JoinColumn(name = "trips_id")
     private TripEntity tripDetail;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "DAY_TO_LOCATION",
+            joinColumns = @JoinColumn(name = "days_id"),
+            inverseJoinColumns = @JoinColumn(name = "location_id")
+    )
+    Set<LocationEntity> locations;
+
     @Override
     public String toString() {
         return "DayEntity{" +
                 "id=" + id +
                 ", dayNumber=" + dayNumber +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
                 ", postText='" + postText + '\'' +
                 ", tripDetail=" + tripDetail +
                 '}';

@@ -164,15 +164,12 @@ class TripServiceImplTest {
     private List<DayEntity> generateMockDayEntityList() {
         DayEntity dayEntity1 = new DayEntity();
         dayEntity1.setId(1L);
-        dayEntity1.setCountry(mockCountry);
-        dayEntity1.setCity(mockCity);
+
         dayEntity1.setPostText(mockPostBody);
         dayEntity1.setDayNumber(1);
 
         DayEntity dayEntity2 = new DayEntity();
         dayEntity2.setId(2L);
-        dayEntity2.setCountry(mockCountry);
-        dayEntity2.setCity(mockCity);
         dayEntity2.setPostText(mockPostBody);
         dayEntity2.setDayNumber(2);
 
@@ -201,8 +198,6 @@ class TripServiceImplTest {
 
     private DayRequestModel generateMockDayRequestModel(int dayNumber) {
         DayRequestModel toReturn = new DayRequestModel();
-        toReturn.setCity(mockCity);
-        toReturn.setCountry(mockCountry);
         toReturn.setPostText(mockPostBody);
         toReturn.setDayNumber(dayNumber);
 

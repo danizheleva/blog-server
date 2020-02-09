@@ -4,6 +4,7 @@ import com.danielazheleva.blog.entity.DayEntity;
 import com.danielazheleva.blog.entity.TripEntity;
 import com.danielazheleva.blog.exceptions.DayServiceException;
 import com.danielazheleva.blog.models.request.DayRequestModel;
+import com.danielazheleva.blog.models.request.LocationRequestModel;
 import com.danielazheleva.blog.repository.DayRepository;
 import com.danielazheleva.blog.services.TripService;
 import com.danielazheleva.blog.shared.DayDto;
@@ -15,9 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -59,8 +58,6 @@ class DayServiceImplTest {
         mockTripDto.setListOfDays(listOfDays);
 
         mockDayEntity.setDayNumber(1);
-        mockDayEntity.setCity("mock_city");
-        mockDayEntity.setCountry("mock_country");
         mockDayEntity.setPostText("mock_text_about_a_day");
         mockDayEntity.setTripDetail(mm.map(mockTripDto, TripEntity.class));
 
@@ -96,8 +93,6 @@ class DayServiceImplTest {
 
         DayDto returned = dayService.getDay(anyLong());
 
-        assertEquals(returned.getCity(), mockDayEntity.getCity());
-        assertEquals(returned.getCountry(), mockDayEntity.getCountry());
         assertEquals(returned.getDayNumber(), mockDayEntity.getDayNumber());
         assertEquals(returned.getPostText(), mockDayEntity.getPostText());
     }
@@ -121,8 +116,7 @@ class DayServiceImplTest {
 
         assertEquals(returnedEditedDay.getPostText(), newDetails.getPostText());
         assertEquals(returnedEditedDay.getDayNumber(), newDetails.getDayNumber());
-        assertEquals(returnedEditedDay.getCountry(), newDetails.getCountry());
-        assertEquals(returnedEditedDay.getCity(), newDetails.getCity());
+
 
         verify(dayRepoMock, times(1)).save(any(DayEntity.class));
     }
@@ -192,9 +186,7 @@ class DayServiceImplTest {
 
     private DayDto generateMockDayDto(String city, String title, String country, int dayNumber, String text) {
         DayDto day = new DayDto();
-        day.setCity(city);
         day.setDayTitle(title);
-        day.setCountry(country);
         day.setTripDetail(mockTripDto);
         day.setDayNumber(dayNumber);
         day.setPostText(text);
@@ -203,7 +195,8 @@ class DayServiceImplTest {
     }
 
     private DayRequestModel generateMockDayRequestModel(){
-        return new DayRequestModel(1, "test_title","test_country", "test_city", "fake_text");
+        LocationRequestModel location = LocationRequestModel.builder().city("fake_city").country("fake_country").build();
+        return new DayRequestModel(1, "test_title", Collections.singletonList(location), "fake_text");
     }
 
 }
