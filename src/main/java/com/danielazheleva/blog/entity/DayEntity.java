@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 
@@ -36,7 +37,7 @@ public class DayEntity implements Serializable {
             joinColumns = @JoinColumn(name = "days_id"),
             inverseJoinColumns = @JoinColumn(name = "location_id")
     )
-    Set<LocationEntity> locations;
+    List<LocationEntity> locations;
 
     @Override
     public String toString() {
