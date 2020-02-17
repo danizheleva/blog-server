@@ -3,6 +3,7 @@ export interface TripList {
 }
 
 export interface Trip {
+  id: number;
   tripTitle: string;
   tripSummary: string;
   tripStartDate: Date;
@@ -24,3 +25,4 @@ interface Locations {
   city: string;
   country: string;
 }
+

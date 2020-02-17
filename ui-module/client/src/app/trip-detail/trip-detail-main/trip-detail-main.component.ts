@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Trip } from 'src/app/models/trips-models';
 
 @Component({
   selector: 'app-trip-detail-main',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TripDetailMainComponent implements OnInit {
 
-  constructor() { }
+  currentTrip: Trip;
+
+  constructor(private _activatedRotue: ActivatedRoute) { }
 
   ngOnInit() {
+    this._activatedRotue.data.subscribe((data: {component: Trip}) => {
+      this.currentTrip = data.component;
+      console.log(this.currentTrip)
+    })
   }
 
 }

@@ -17,7 +17,6 @@ export class TripListComponent implements OnInit {
   ngOnInit() {
     this._tripService.getAll().subscribe(data => {
       this.trips = data;
-
     })
   }
 

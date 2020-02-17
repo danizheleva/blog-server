@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class TripRest {
 
+    private long id;
     private String tripTitle;
     private Date tripStartDate;
     private String tripSummary;
