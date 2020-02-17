@@ -1,3 +1,13 @@
-<p>trip-detail-main works!</p>
+<div class="container">
+  <h1 class="text-capitalize">{{currentTrip.tripTitle}}</h1>
+  <p class="font-weight-light">{{ currentTrip.tripSummary }}</p>
 
-<p>{{currentTrip.tripTitle}}</p>
+  <div *ngFor="let day of currentTrip.listOfDays">
+    <h2 class="text-capitalize">{{day.dayTitle }}</h2>
+    <p> {{ day.dayText }}</p>
+
+    <div *ngFor="let location of day.locations">
+      <p>{{ location.city }}, {{ location.country }}</p>
+    </div>
+  </div>
+</div>
