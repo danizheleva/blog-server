@@ -21,6 +21,13 @@
     <version>2.1.8.RELEASE</version>
   </parent>
 
+  <build>
+    <plugin>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>azure-webapp-maven-plugin</artifactId>
+      <version>1.9.0</version>
+    </plugin>
+  </build>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
